@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
-import Logo from '../../images/mhk logo1_new 2.svg';
+import Logo from '../../images/mhk-logo.svg';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);

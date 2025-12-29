@@ -1,4 +1,4 @@
-import Logo from '../../images/mhk logo1_new 2.svg';
+import Logo from '../../images/mhk-logo.svg';
 
 export function Footer() {
   const navigate = (route: string) => {
