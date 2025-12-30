@@ -23,23 +23,22 @@ export function AboutSection() {
           About MHK TECH INC
         </motion.h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="self-start"
           >
             <h3
-              className="mb-6 text-[#0a1a2f]"
+              className="mb-6 text-[#007bff]"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
               Our Story
             </h3>
             <p className="text-gray-600 mb-6" style={{ fontFamily: 'var(--font-body)' }}>
-              MHK TECH INC delivers enterprise cloud and software solutions worldwide,
-              offering custom application development, data connectors, and consultancy
-              to help businesses scale and succeed.
+              MHK TECH INC delivers enterprise cloud and software solutions to clients worldwide, offering industry-first, customizable products and services tailored to diverse business needs. The company specializes in application development, digital growth strategies, and consultancy services, focusing on deeply understanding each client’s core values, ethics, and operational methods to deliver efficient, scalable, and impactful solutions. With highly skilled IT teams, MHK TECH INC builds state-of-the-art applications that support business efficiency, financial planning, and end-to-end operations from initial planning to final customer service while promoting ethical growth and strong organizational culture. The company is committed to timely delivery, customer satisfaction, and responsive communication, typically addressing client inquiries within a few hours and no later than 24 hours.
             </p>
 
             <div className="space-y-4 mb-6">
@@ -80,7 +79,7 @@ export function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative self-start"
           >
             <img
               src="https://images.unsplash.com/photo-1633457896836-f8d6025c85d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwb2ZmaWNlJTIwbWVldGluZ3xlbnwxfHx8fDE3NjY5ODY5MjN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"

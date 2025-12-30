@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { Search, ArrowRight, Sparkles, X, Send } from 'lucide-react';
 
 interface Suggestion {
@@ -94,12 +93,7 @@ export function SearchAssistant() {
     <div ref={containerRef} className="relative w-full max-w-3xl mx-auto">
       {/* Search Bar */}
       <div className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative"
-        >
+        <div className="relative">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
             <Search className="w-5 h-5" />
           </div>
@@ -118,27 +112,18 @@ export function SearchAssistant() {
             className="w-full pl-12 pr-12 py-4 bg-white rounded-full border-2 border-gray-200 focus:border-[#007bff] focus:outline-none transition-all duration-300 shadow-lg hover:shadow-xl text-gray-700 placeholder:text-gray-400"
             style={{ fontFamily: 'var(--font-body)' }}
           />
-          <motion.div
+          <div
             className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#007bff] rounded-full flex items-center justify-center cursor-pointer hover:bg-[#0056b3] transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
             onClick={() => openAssistantPage(searchValue)}
           >
             <Sparkles className="w-4 h-4 text-white" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Suggestions Dropdown */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 w-full bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
-          >
+      {isOpen && (
+        <div className="absolute top-full mt-2 w-full bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50">
             <div className="p-2 max-h-96 overflow-y-auto">
               {filteredSuggestions.length > 0 ? (
                 <>
@@ -148,11 +133,8 @@ export function SearchAssistant() {
                     </p>
                   </div>
                   {filteredSuggestions.map((suggestion, index) => (
-                    <motion.button
+                    <button
                       key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
                       onClick={() => handleSuggestionClick(suggestion.link)}
                       className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors group"
                     >
@@ -171,9 +153,9 @@ export function SearchAssistant() {
                             {suggestion.description}
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#007bff] group-hover:translate-x-1 transition-all flex-shrink-0" />
+                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#007bff] flex-shrink-0" />
                       </div>
-                    </motion.button>
+                    </button>
                   ))}
                 </>
               ) : (
@@ -184,9 +166,9 @@ export function SearchAssistant() {
                 </div>
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+        </div>
+      )}
 
       {/* assistant opens in a separate page */}
     </div>

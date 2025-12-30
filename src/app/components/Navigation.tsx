@@ -26,7 +26,7 @@ export function Navigation() {
     { name: 'Who We Are', route: 'about' },
     { name: 'Products', route: 'services' },
     { name: 'Join Us', route: 'careers' },
-    { name: 'Contact', route: 'contact' },
+    { name: 'Contact Us', route: 'contact' },
   ];
 
   return (

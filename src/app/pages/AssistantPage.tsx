@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
 import { Sparkles, X, Send } from 'lucide-react';
 
 export default function AssistantPage() {
@@ -18,32 +17,31 @@ export default function AssistantPage() {
     const params = qIndex >= 0 ? new URLSearchParams(hash.slice(qIndex)) : new URLSearchParams('');
     const q = params.get('q') || '';
     if (q) {
-      const decoded = decodeURIComponent(q);
+      const decoded = q; // URLSearchParams already decodes percent-encoding
       setMessages([{ sender: 'user', text: decoded }]);
 
-      // sample case: if user says 'hii', show welcome with options
+      // sample case: if user says 'hii' or 'hi', show welcome with options immediately
       if (decoded.trim().toLowerCase() === 'hii' || decoded.trim().toLowerCase() === 'hi') {
-        setTimeout(() => {
-          setMessages([
-            { sender: 'user', text: decoded },
-            {
-              sender: 'bot',
-              text: `Welcome to MHKTech👋\n\nHow would you like to\nengage with us?`,
-              options: [
-                { label: 'Data Engineering' },
-                { label: 'Cloud Solutions' },
-                { label: 'Data Science AI' },
-                { label: 'IT Solution' },
-              ],
-            },
-          ]);
-        }, 400);
+        setMessages([
+          { sender: 'user', text: decoded },
+          {
+            sender: 'bot',
+            text: `Welcome to MHKTech👋\n\nHow would you like to engage with us?`,
+            options: [
+              { label: 'Data Engineering' },
+              { label: 'Cloud Solutions' },
+              { label: 'Data Science AI' },
+              { label: 'IT Solution' },
+              { label: 'Contact Us' },
+            ],
+          },
+        ]);
         return;
       }
 
       setTimeout(() => {
         setMessages((m) => [...m, { sender: 'bot', text: `Quick summary for "${decoded}": see our products and contact pages for details.` }]);
-      }, 700);
+      }, 400);
     }
   }, []);
 
@@ -61,9 +59,9 @@ export default function AssistantPage() {
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: 'var(--font-body)' }}>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-5xl mx-auto px-4 px-4 sm:px-6 lg:px-8 ">
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 ">
             <Sparkles className="w-6 h-6 text-[#007bff]" />
             <h1 className="text-2xl font-semibold">Assistant</h1>
           </div>
@@ -72,21 +70,40 @@ export default function AssistantPage() {
           </button>
         </div>
 
-        <div className="bg-gray-50 rounded-lg shadow-inner p-4 mb-4 h-[60vh] overflow-hidden flex flex-col">
+        <div
+          className="bg-gray-50 rounded-lg shadow-inner p-4 mb-4 overflow-hidden flex flex-col"
+          style={{ minHeight: 'calc(100vh - 160px)' }}
+        >
           <div ref={messagesRef} className="flex-1 overflow-y-auto p-2 space-y-3">
             {messages.length === 0 && <div className="text-gray-500">Ask me anything about our services or products.</div>}
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.sender === 'bot' ? 'justify-start' : 'justify-end'}`}>
-                <div className={`max-w-[80%] px-4 py-2 rounded-lg ${m.sender === 'bot' ? 'bg-white text-gray-900' : 'bg-[#007bff] text-white'}`}>
-                  <div style={{ whiteSpace: 'pre-line' }}>{m.text}</div>
+                {m.sender === 'bot' ? (
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#007bff] flex items-center justify-center text-white mt-1">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div className={`max-w-[80%] px-5 py-3 rounded-lg bg-white text-gray-900 shadow-md border border-gray-100 text-lg`}>
+                      <div style={{ whiteSpace: 'pre-line' }}>{m.text}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`max-w-[80%] px-4 py-2 rounded-lg bg-[#007bff] text-white`}>
+                    <div style={{ whiteSpace: 'pre-line' }}>{m.text}</div>
+                  </div>
+                )}
                   {m.options && m.options.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {m.options.map((opt, idx) => (
                         <button
                           key={idx}
                           onClick={() => {
-                            const q = encodeURIComponent(opt.label);
-                            window.location.hash = `#/assistant?q=${q}`;
+                            if (opt.label.toLowerCase().includes('contact')) {
+                              window.location.hash = '#/contact';
+                            } else {
+                              const q = encodeURIComponent(opt.label);
+                              window.location.hash = `#/assistant?q=${q}`;
+                            }
                           }}
                           className="px-3 py-1 bg-[#f3f4f6] rounded-full text-sm hover:bg-gray-100"
                         >
@@ -95,7 +112,6 @@ export default function AssistantPage() {
                       ))}
                     </div>
                   )}
-                </div>
               </div>
             ))}
           </div>

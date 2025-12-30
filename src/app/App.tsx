@@ -46,6 +46,17 @@ export default function App() {
     return () => window.removeEventListener('hashchange', parseHash);
   }, []);
 
+  // ensure new routes (like assistant) start at top of page
+  useEffect(() => {
+    if (route.type === 'assistant') {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      } catch (e) {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [route]);
+
   if (route.type === 'service') {
     const svc = services.find((s) => s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === route.slug);
     if (!svc) {

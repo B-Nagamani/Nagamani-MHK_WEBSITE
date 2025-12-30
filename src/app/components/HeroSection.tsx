@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { Button } from './ui/button';
 import { SearchAssistant } from './SearchAssistant';
 
 interface HeroSectionProps {
@@ -65,45 +64,11 @@ export function HeroSection({ onContactClick }: HeroSectionProps) {
             <SearchAssistant />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-[#007bff] hover:bg-[#0056b3] text-white px-8 py-6"
-              onClick={() => {
-                  const element = document.getElementById('services');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                    element.classList.add('ring-4', 'ring-[#007bff]/30');
-                    setTimeout(() => element.classList.remove('ring-4', 'ring-[#007bff]/30'), 1600);
-                  } else {
-                    window.location.hash = '#/services';
-                  }
-              }}
-            >
-              Get Started
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-[#0a1a2f] px-8 py-6"
-              onClick={onContactClick}
-            >
-              Contact Us
-            </Button>
-          </div>
+          {/* Action buttons removed per request */}
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-2 bg-white/50 rounded-full" />
-        </div>
-      </motion.div>
+      {/* Scroll Indicator removed per request */}
     </section>
   );
 }
